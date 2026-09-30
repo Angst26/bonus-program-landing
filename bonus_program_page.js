@@ -14,6 +14,24 @@
   page.append(edgeBlur);
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const heroImage = page.querySelector('.bonus-hero__background');
+  // Start once the photo is decoded and its section first enters the viewport.
+  if (heroImage && !reducedMotion.matches) {
+    const revealHero = () => {
+      if (reducedMotion.matches) return;
+      if (!('IntersectionObserver' in window)) {
+        heroImage.classList.add('is-entering');
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        if (!reducedMotion.matches) heroImage.classList.add('is-entering');
+        observer.disconnect();
+      });
+      observer.observe(heroImage.closest('.bonus-hero'));
+    };
+    heroImage.decode().then(revealHero).catch(() => {});
+  }
   const levels = [...page.querySelectorAll('.bonus-level')];
   const reward = page.querySelector('.bonus-levels__reward');
   const range = page.querySelector('.bonus-levels__range');

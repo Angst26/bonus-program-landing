@@ -77,12 +77,20 @@ body { margin: 0; }
 .bonus-button { display: flex; align-items: center; justify-content: center; min-height: 51px; padding: 14px 20px; border: 1px solid #000; border-radius: 6px; background: #000; color: #fff !important; font-size: 16px; font-weight: 600; line-height: 20px; text-align: center; text-decoration: none; transition: background 180ms, color 180ms, border-color 180ms; }
 .bonus-button--light { background: #fff; color: #000 !important; border-color: #fff; }
 .bonus-button--outline { background: transparent; border-color: #dbdbdb; color: #000 !important; font-weight: 400; }
-.bonus-button:not(.bonus-button--static):hover { background: #333; border-color: #333; }
+.bonus-button:hover { background: #333; border-color: #333; }
 .bonus-button--light:hover { background: #e5e5e5; border-color: #e5e5e5; }
-.bonus-button--outline:hover { background: #e5e5e5; border-color: #bbb; }
+.bonus-button--outline { transition: border-color 250ms ease, color 250ms ease, background-color 250ms ease; }
+.bonus-button--outline:hover, .bonus-button--outline:active { background: transparent; border-color: #000; color: #000 !important; }
+.bonus-hero__button { transition: opacity 250ms ease; }
+.bonus-hero__button:hover, .bonus-hero__button:active { opacity: .75; background: #fff; border-color: #fff; }
 
 .bonus-hero { position: relative; isolation: isolate; overflow: hidden; background: #000; color: #fff; }
 .bonus-hero__background { position: absolute; z-index: -2; width: 100%; height: calc(100% + 21px); bottom: 0; object-fit: cover; }
+.bonus-hero__background.is-entering { animation: bonus-hero-zoom 1800ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes bonus-hero-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
 .bonus-hero::before { content: ""; position: absolute; inset: 0; background: rgb(0 0 0 / 75%); z-index: -1; }
 .bonus-hero__content { display: flex; flex-direction: column; align-items: flex-start; padding-block: 144px; }
 .bonus-hero .bonus-eyebrow { color: rgb(255 255 255 / 70%); line-height: 16px; }
@@ -164,8 +172,8 @@ body { margin: 0; }
 .bonus-preview__outline--muted { opacity: .5; }
 .bonus-preview__balance { display: flex; align-items: center; gap: 5px; margin-top: 4px !important; font-size: 23px; line-height: 24px; }
 .bonus-preview__coin { position: relative; width: 20px; height: 20px; }
-.bonus-preview__coin img:first-child { position: absolute; left: .53px; top: 0; }
-.bonus-preview__coin img:last-child { position: absolute; left: 4.14px; top: 6.72px; }
+.bonus-preview__coin > img:first-child, .bonus-preview__coin picture:first-child img { position: absolute; left: .53px; top: 0; }
+.bonus-preview__coin > img:last-child, .bonus-preview__coin picture:last-child img { position: absolute; left: 4.14px; top: 6.72px; }
 .bonus-gift-badge--small { margin-top: 8px; padding: 3px 8px 3px 6px; gap: 2px; font-size: 11px; line-height: 14px; }
 
 .bonus-levels__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
@@ -245,7 +253,7 @@ body { margin: 0; }
   .bonus-tablet-only-break { display: initial; }
   .bonus-benefit { padding: clamp(16px, 3.91vw, 30px); }
   .bonus-benefit__value { font-size: clamp(28px, 8.34vw, 64px); gap: 8px; }
-  .bonus-benefit:nth-child(n+3) .bonus-benefit__value::before { content: '+'; margin-right: -8px; }
+
   .bonus-benefit h3 { font-size: clamp(16px, 2.87vw, 22px); }
   .bonus-benefit__description { font-size: clamp(13px, 2.09vw, 16px); }
   .bonus-step { min-height: auto; grid-template-columns: 32px minmax(0, 1fr); gap: 30px 32px; }
@@ -285,78 +293,97 @@ body { margin: 0; }
   .bonus-preview__bag, .bonus-preview__card--issued .bonus-preview__bag { left: auto; right: -18px; }
 }
 
+/* Mobile design: Figma 181:135. */
 @media (max-width: 390px) {
-  .bonus-tablet-break { display: none; }
-  .bonus-tablet-only-break { display: none; }
+  .bonus-tablet-break { display: block; }
+  .bonus-tablet-only-break, .bonus-join .bonus-desktop-break { display: none; }
   .bonus-edge-blur { height: 110px; }
   .bonus-container { width: calc(100% - 40px); }
   .bonus-section { padding-block: 56px; }
-  .bonus-page h1 { font-size: clamp(32px, 7.5vw, 48px); }
+  .bonus-page h1 { font-size: 33px; }
   .bonus-page h1 br { display: none; }
-  .bonus-page h2 { font-size: clamp(30px, 6vw, 40px); }
+  .bonus-page h2 { font-size: 28px; }
   .bonus-page h3 { font-size: 20px; }
   .bonus-section__heading { margin-bottom: 30px; }
-  .bonus-section__heading > .bonus-eyebrow { margin-bottom: 28px; }
-  .bonus-section__description { font-size: 16px; }
-  .bonus-hero__content { padding-block: 80px; }
-  .bonus-hero__background { object-position: 55% center; }
-  .bonus-hero__button { margin-top: 36px; }
-  .bonus-benefits { gap: 16px; }
-  .bonus-benefit { padding: 22px; gap: 18px; }
-  .bonus-benefit__value { font-size: 48px; }
-  .bonus-benefit__description { font-size: 14px; }
-  .bonus-benefit__decoration { transform: scale(.75) rotate(-14deg); transform-origin: right top; }
-  .bonus-step { column-gap: 0; grid-template-columns: 32px minmax(0, 1fr); gap: 20px 16px; min-height: auto; }
-  .bonus-step:first-child { min-height: auto; }
-  .bonus-step + .bonus-step { margin-top: 48px; }
+  .bonus-section__heading > .bonus-eyebrow { margin-bottom: 20px; }
+  .bonus-section__description { margin-top: 16px !important; font-size: 18px; }
+  .bonus-hero__content { padding-block: 64px; }
+  .bonus-hero .bonus-gift-badge { margin-block: 20px; }
+  .bonus-hero__background { width: 495px; height: 458px; right: 0; bottom: -3px; object-position: 31.35% center; }
+  .bonus-hero__button { width: 100%; margin-top: 50px; }
+  .bonus-section[aria-labelledby="benefits-title"] .bonus-section__heading,
+  .bonus-section[aria-labelledby="spend-title"] .bonus-section__heading { margin-bottom: 40px; }
+  .bonus-benefits { grid-template-columns: 1fr; gap: 20px; }
+  .bonus-benefit { padding: 30px; gap: 20px; }
+  .bonus-benefit__value { font-size: 46px; gap: 8px; }
+  .bonus-benefit h3 { font-size: 22px; }
+  .bonus-benefit__description { font-size: 16px; }
+  .bonus-benefit .bonus-coin { width: 30px; height: 30px; }
+  .bonus-step { grid-template-columns: 16px minmax(0, 1fr); gap: 30px 20px; min-height: auto; }
+  .bonus-step + .bonus-step { margin-top: 40px; }
   .bonus-steps::before, .bonus-steps::after { left: 7px; }
   .bonus-step__dot { left: 0; top: 14px; }
-  .bonus-step__copy, .bonus-step:nth-child(even) .bonus-step__copy { grid-column: 2; grid-row: 1; text-align: left; }
-  .bonus-step__visual, .bonus-step:nth-child(even) .bonus-step__visual { grid-column: 2; grid-row: 2; justify-self: start; }
-  .bonus-step__number { font-size: 40px; margin-bottom: 14px; }
-  .bonus-step__copy p { margin-top: 12px; font-size: 14px; }
-  .bonus-preview__card { padding: 24px; }
-  .bonus-preview__outline { padding-inline: 10px; font-size: 12px; }
-  .bonus-levels__list { gap: 8px; }
-  .bonus-level { padding: 16px 10px; gap: 24px; }
-  .bonus-level__label { font-size: 9px; }
-  .bonus-level__rate { font-size: 32px; }
-  .bonus-level__art { left: calc(100% - 35px); top: 54px; }
-  .bonus-levels__details { margin-top: 24px; grid-template-columns: 1fr; gap: 16px; }
-  .bonus-levels__connector { display: none; }
-  .bonus-levels__reward, .bonus-levels__range { padding: 20px; }
-  .bonus-levels__reward { font-size: 18px; }
-  .bonus-payment { gap: 20px; grid-template-columns: 1fr; }
-  .bonus-payment__rule { min-height: 240px; }
-  .bonus-payment__rule p { font-size: 40px; }
-  .bonus-faq { gap: 24px; }
-  .bonus-faq article { padding-top: 24px; }
-  .bonus-join { grid-template-columns: 1fr; gap: 30px; }
-  .bonus-join__eyebrow { margin-bottom: 28px !important; }
+  .bonus-step__number { font-size: 40px; margin-bottom: 20px; }
+  .bonus-step__copy p { margin-top: 12px; font-size: 16px; }
+  .bonus-preview { padding: 13.478px; border-radius: 8.424px; }
+  .bonus-step:first-child .bonus-preview { min-height: 202.174px; }
+  .bonus-preview__paper { padding: 13.478px; gap: 15.163px; border-radius: 5.054px; }
+  .bonus-preview__title { font-size: 13.478px; }
+  .bonus-preview__login-buttons { gap: 6.739px; }
+  .bonus-preview__button { padding: 8.424px; font-size: 10.109px; border-radius: 5.054px; }
+  .bonus-preview__socials { gap: 6.739px; margin-top: -1.685px; }
+  .bonus-preview__socials span { padding: 8.424px; border-radius: 5.054px; }
+  .bonus-preview__socials img { width: auto; height: auto; mask: url("assets/5f346.svg") center / 16.848px 16.848px no-repeat; }
+  .bonus-preview__paper--form { padding: 11.793px; gap: 8.424px; }
+  .bonus-preview__paper--form .bonus-preview__title { font-size: 11.793px; }
+  .bonus-preview__field { padding: 6.739px; font-size: 9.266px; border-radius: 5.054px; }
+  .bonus-preview__card { height: 183.641px; padding: 20.217px; border-radius: 5.054px; }
+  .bonus-preview__bag, .bonus-preview__card--issued .bonus-preview__bag { width: 129.728px; height: 123.832px; top: -.65px; left: auto; right: 0; }
+  .bonus-preview__caption { font-size: 10.109px; line-height: 14.321px; }
+  .bonus-preview__invitation { margin-top: 5.054px !important; font-size: 10.951px; }
+  .bonus-preview__card-bottom { gap: 6.739px; font-size: 10.951px; }
+  .bonus-preview__outline { padding: 5.896px 10.109px; font-size: 10.951px; line-height: 11.793px; border-width: .842px; border-radius: 5.054px; }
+  .bonus-preview__balance { gap: 4.212px; margin-top: 3.37px !important; font-size: 19.375px; line-height: 20.217px; }
+  .bonus-preview__coin { width: 16.848px; height: 16.848px; }
+  .bonus-preview__coin img { width: auto; height: auto; }
+  .bonus-preview__coin picture:first-child img { left: .445px; top: 0; position: absolute; }
+  .bonus-preview__coin picture:last-child img { left: 3.487px; top: 5.66px; position: absolute; }
+  .bonus-gift-badge--small { margin-top: 6.739px; padding: 2.527px 6.739px 2.527px 5.054px; gap: 1.685px; font-size: 9.266px; line-height: 11.793px; border-radius: 3.37px; }
+  .bonus-gift-badge--small .bonus-flame { flex-basis: 11.793px; height: 11.793px; }
+  .bonus-levels__list { grid-template-columns: 1fr; gap: 12px; }
+  .bonus-level { flex-direction: row; justify-content: space-between; align-items: center; padding: 24px; gap: 16px; }
+  .bonus-level__label { font-size: 11px; }
+  .bonus-level__rate { font-size: 28px; }
+  .bonus-level__art { width: 98.225px; height: 98.225px; left: 126.387px; top: 46.387px; }
+  .bonus-level__art::before { width: 157.717px; height: 157.717px; left: -30.15px; top: -30.15px; box-shadow: 0 0 0 36.834px rgb(0 0 0 / 10%), 0 0 110.503px 24.556px rgb(0 0 0 / 18%); }
+  .bonus-levels__details { margin-top: 30px; gap: 12px; }
+  .bonus-levels__reward, .bonus-levels__range { padding: 24px; font-size: 16px; }
+  .bonus-payment { gap: 20px; }
+  .bonus-receipt { padding: 24px; }
+  .bonus-receipt h3 { font-size: 24px; }
+  .bonus-receipt dt { font-size: 16px; }
+  .bonus-receipt dd { font-size: 22px; }
+  .bonus-payment__rule { min-height: 319px; }
+  .bonus-payment__rule p { font-size: 30px; }
+  .bonus-payment__rule span { font-size: 20px; }
+  .bonus-faq { gap: 30px; }
+  .bonus-faq article { padding-top: 20px; }
+  .bonus-join { gap: 40px; }
+  .bonus-join__eyebrow { margin-bottom: 20px !important; }
+  .bonus-button { font-size: 16px; }
+  .bonus-join__actions .bonus-button { padding-inline: 16px; }
+  .bonus-mobile-omit { display: none; }
 }
-
-@media (max-width: 390px) {
-  .bonus-benefits { grid-template-columns: 1fr; }
-  .bonus-benefit { padding: 26px; }
-  .bonus-levels__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .bonus-level { padding: 16px; }
-  .bonus-preview { padding: 10px; }
-  .bonus-preview__paper { padding: 12px; }
-  .bonus-preview__title { font-size: 14px; }
-  .bonus-preview__card { padding: 16px; }
-  .bonus-preview__bag, .bonus-preview__card--issued .bonus-preview__bag { left: auto; right: -18px; }
-  .bonus-preview__outline { font-size: 10px; padding-inline: 6px; }
-  .bonus-receipt { padding: 20px; }
-  .bonus-receipt dt { font-size: 13px; }
-  .bonus-receipt dd { font-size: 18px; }
-  .bonus-button { font-size: 14px; }
-}
-
 @media (max-width: 359px) {
-  .bonus-preview__card-bottom { flex-wrap: wrap; justify-content: flex-start; }
-  .bonus-gift-badge--small { font-size: 9px; }
+  .bonus-page h1 { font-size: 29px; }
+  .bonus-preview__card { padding-inline: 12px; }
+  .bonus-preview__outline { padding-inline: 5px; font-size: 9px; }
+  .bonus-receipt { padding-inline: 18px; }
+  .bonus-receipt dt { font-size: 14px; }
+  .bonus-receipt dd { font-size: 20px; }
+  .bonus-payment__rule span { font-size: 18px; }
+  .bonus-join__actions .bonus-button { padding-inline: 8px; font-size: 14px; }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .bonus-benefit.is-scroll-ready,
   .bonus-steps.is-timeline-ready .bonus-step > :is(.bonus-step__visual, .bonus-step__copy) { transform: none; }
