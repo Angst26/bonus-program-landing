@@ -15,6 +15,7 @@
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const heroImage = page.querySelector('.bonus-hero__background');
+  const hero = heroImage?.closest('.bonus-hero');
   // Start once the photo is decoded and its section first enters the viewport.
   if (heroImage && !reducedMotion.matches) {
     const revealHero = () => {
@@ -104,6 +105,12 @@
 
   const updateTimeline = () => {
     frameRequested = false;
+    if (hero) {
+      const heroRect = hero.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, -heroRect.top / Math.max(1, heroRect.height)));
+      // Keep the entrance zoom, then reverse its scale as the hero leaves the viewport.
+      heroImage.style.setProperty('--bonus-hero-zoom', reducedMotion.matches ? 1 : 1.1 - progress * 0.1);
+    }
     const pageRect = page.getBoundingClientRect();
     const blurHeight = edgeBlur.offsetHeight || 160;
     const blurOpacity = Math.max(0, Math.min(1,
@@ -167,16 +174,6 @@
   updateTimeline();
   benefits.forEach((card) => card.classList.add('is-scroll-ready'));
   timeline?.classList.add('is-timeline-ready');
-
-  page.querySelector('a[href="#join-steps"]')?.addEventListener('click', (event) => {
-    const target = page.querySelector('#join-steps');
-    if (!target) return;
-    event.preventDefault();
-    target.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
-    target.setAttribute('tabindex', '-1');
-    target.focus({ preventScroll: true });
-    history.replaceState(null, '', '#join-steps');
-  });
 
   reducedMotion.addEventListener('change', (event) => {
     scheduleTimeline();
