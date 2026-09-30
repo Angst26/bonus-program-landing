@@ -228,7 +228,66 @@ body { margin: 0; }
   .bonus-desktop-break { display: none; }
 }
 
-@media (max-width: 767px) {
+.bonus-tablet-break { display: none; }
+.bonus-tablet-only-break { display: none; }
+
+/* Tablet design: Figma 181:2, 768 px canvas. */
+@media (max-width: 768px) {
+  .bonus-container { width: calc(100% - 64px); }
+  .bonus-page h1 { font-size: clamp(32px, 6.51vw, 50px); }
+  .bonus-page h2 { font-size: clamp(28px, 5.73vw, 44px); }
+  .bonus-section__heading--center { text-align: left; }
+  .bonus-hero__content { padding-block: 120px; }
+  .bonus-hero__button { min-height: 47px; padding-block: 12px; }
+  .bonus-hero__background { height: 710px; bottom: -3px; object-position: 31.35% center; }
+  .bonus-title-desktop-break { display: none; }
+  .bonus-tablet-break { display: block; }
+  .bonus-tablet-only-break { display: initial; }
+  .bonus-benefit { padding: clamp(16px, 3.91vw, 30px); }
+  .bonus-benefit__value { font-size: clamp(28px, 8.34vw, 64px); gap: 8px; }
+  .bonus-benefit:nth-child(n+3) .bonus-benefit__value::before { content: '+'; margin-right: -8px; }
+  .bonus-benefit h3 { font-size: clamp(16px, 2.87vw, 22px); }
+  .bonus-benefit__description { font-size: clamp(13px, 2.09vw, 16px); }
+  .bonus-step { min-height: auto; grid-template-columns: 32px minmax(0, 1fr); gap: 30px 32px; }
+  .bonus-step:first-child { min-height: auto; }
+  .bonus-step + .bonus-step { margin-top: 80px; }
+  .bonus-steps::before, .bonus-steps::after { left: 15px; }
+  .bonus-step__dot { left: 8px; top: 21px; }
+  .bonus-step__copy, .bonus-step:nth-child(even) .bonus-step__copy { grid-column: 2; grid-row: 1; text-align: left; }
+  .bonus-step__visual, .bonus-step:nth-child(even) .bonus-step__visual { grid-column: 2; grid-row: 2; justify-self: start; }
+  .bonus-step:first-child .bonus-preview { min-height: 240px; display: grid; align-items: center; }
+  .bonus-preview__card { padding: 24px; }
+  .bonus-preview__outline { padding-inline: 12px; font-size: 13px; }
+  .bonus-level { padding: clamp(8px, 3.125vw, 24px); }
+  .bonus-level__rate { font-size: clamp(22px, 5.21vw, 40px); }
+  .bonus-level__label { font-weight: 600; font-size: clamp(8px, 1.44vw, 11px); }
+  .bonus-level__art { width: 48.341px; height: 48.341px; left: calc(100% - 29px); top: 107.829px; }
+  .bonus-level__art::before { width: 77.62px; height: 77.62px; left: -14.84px; top: -14.84px; box-shadow: 0 0 0 18.128px rgb(0 0 0 / 10%), 0 0 54.384px 12.085px rgb(0 0 0 / 18%); }
+  .bonus-levels__details { grid-template-columns: 1fr; gap: 12px; }
+  .bonus-levels__connector { display: none; }
+  .bonus-payment { grid-template-columns: 1fr; }
+  .bonus-payment__rule { min-height: 319px; }
+  .bonus-section--dark .bonus-section__description { max-width: 663px; line-height: 1.65; }
+  .bonus-join { grid-template-columns: 1fr; gap: 40px; }
+  .bonus-join__actions { width: min(440px, 100%); }
+  .bonus-join .bonus-desktop-break { display: initial; }
+}
+
+@media (min-width: 391px) and (max-width: 600px) {
+  .bonus-benefits { gap: 16px; }
+  .bonus-benefit .bonus-coin { width: 24px; height: 24px; }
+  .bonus-levels__list { gap: 8px; }
+  .bonus-level { padding-inline: 6px; }
+  .bonus-level__rate { font-size: clamp(20px, 5.2vw, 31px); }
+  .bonus-preview__card { padding: 16px; }
+  .bonus-preview__card-bottom { flex-wrap: wrap; }
+  .bonus-preview__outline { padding-inline: 6px; font-size: 10px; }
+  .bonus-preview__bag, .bonus-preview__card--issued .bonus-preview__bag { left: auto; right: -18px; }
+}
+
+@media (max-width: 390px) {
+  .bonus-tablet-break { display: none; }
+  .bonus-tablet-only-break { display: none; }
   .bonus-edge-blur { height: 110px; }
   .bonus-container { width: calc(100% - 40px); }
   .bonus-section { padding-block: 56px; }
@@ -276,7 +335,7 @@ body { margin: 0; }
   .bonus-join__eyebrow { margin-bottom: 28px !important; }
 }
 
-@media (max-width: 479px) {
+@media (max-width: 390px) {
   .bonus-benefits { grid-template-columns: 1fr; }
   .bonus-benefit { padding: 26px; }
   .bonus-levels__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
