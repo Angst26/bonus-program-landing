@@ -241,6 +241,7 @@ body { margin: 0; }
 
 /* Tablet design: Figma 181:2, 768 px canvas. */
 @media (max-width: 768px) {
+  .bonus-mobile-omit { display: none; }
   .bonus-container { width: calc(100% - 64px); }
   .bonus-page h1 { font-size: clamp(32px, 6.51vw, 50px); }
   .bonus-page h2 { font-size: clamp(28px, 5.73vw, 44px); }
@@ -372,7 +373,6 @@ body { margin: 0; }
   .bonus-join__eyebrow { margin-bottom: 20px !important; }
   .bonus-button { font-size: 16px; }
   .bonus-join__actions .bonus-button { padding-inline: 16px; }
-  .bonus-mobile-omit { display: none; }
 }
 @media (max-width: 359px) {
   .bonus-page h1 { font-size: 29px; }
