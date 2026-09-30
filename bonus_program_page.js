@@ -107,7 +107,7 @@
     frameRequested = false;
     if (hero) {
       const heroRect = hero.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, -heroRect.top / Math.max(1, heroRect.height)));
+      const progress = Math.max(0, Math.min(1, -heroRect.top / Math.max(1, heroRect.height * 0.35)));
       // Keep the entrance zoom, then reverse its scale as the hero leaves the viewport.
       heroImage.style.setProperty('--bonus-hero-zoom', reducedMotion.matches ? 1 : 1.1 - progress * 0.1);
     }
