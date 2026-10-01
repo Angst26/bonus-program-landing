@@ -59,7 +59,7 @@ body { margin: 0; }
 .bonus-page h1 { font-size: 60px; line-height: 1.1; }
 .bonus-page h2 { font-size: 48px; line-height: 1.1; }
 .bonus-page h3 { font-size: 24px; line-height: 1.45; }
-.bonus-page img { display: block; }
+.bonus-page img { display: block; margin-right: -3px; }
 .bonus-page a { color: inherit; }
 .bonus-page button { font: inherit; }
 .bonus-page :where(a, button):focus-visible { outline: 3px solid #ff4f64; outline-offset: 5px; }
@@ -94,7 +94,7 @@ body { margin: 0; }
 .bonus-hero::before { content: ""; position: absolute; inset: 0; background: rgb(0 0 0 / 75%); z-index: -1; }
 .bonus-hero__content { display: flex; flex-direction: column; align-items: flex-start; padding-block: 144px; }
 .bonus-hero .bonus-eyebrow { color: rgb(255 255 255 / 70%); line-height: 16px; }
-.bonus-gift-badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 8px; border-radius: 4px; background: #ff4f64; color: #fff; font-size: 14px; line-height: 16px; }
+.bonus-gift-badge { display: inline-flex; flex-wrap: nowrap; flex-shrink: 0; align-items: center; width: max-content; white-space: nowrap; gap: 6px; padding: 7px 8px; border-radius: 4px; background: #ff4f64; color: #fff; font-size: 14px; line-height: 16px; }
 .bonus-hero .bonus-gift-badge { margin-block: 30px; }
 .bonus-flame { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 14px; height: 14px; }
 .bonus-hero__button { width: min(400px, 100%); margin-top: 50px; }
